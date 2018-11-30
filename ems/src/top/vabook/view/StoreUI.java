@@ -26,7 +26,7 @@ import top.vabook.domain.StoreEm;
 //库存管理：包括现存设备数量，设备号，设备名,设备状态
 public class StoreUI implements ActionListener{
 
-	private static JFrame jFrame;
+	static JFrame jFrame;
 
 	private static Container container;
 
@@ -52,6 +52,9 @@ public class StoreUI implements ActionListener{
 	private static StoreDao storeDao;
 
 	public StoreUI() {
+		
+	}
+	public void show() {
 
 		jFrame = new JFrame("存储管理");
 
@@ -128,9 +131,6 @@ public class StoreUI implements ActionListener{
 		return data;
 	}
 
-	public static void main(String[] args) {
-		new StoreUI();
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -139,5 +139,10 @@ public class StoreUI implements ActionListener{
 			jFrame.dispose();
 		}
 	}
+	
+	public void close() {
+		jFrame.dispose();
+	}
+	
 
 }

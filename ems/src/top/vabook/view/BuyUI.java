@@ -27,7 +27,7 @@ import top.vabook.util.MsgUtil;
 //购买管理
 public class BuyUI implements ActionListener {
 
-	private static JFrame jFrame;
+	static JFrame jFrame;
 	private static Container container;
 	private static JPanel panel;
 	private static JLabel countLabel, dateLabel, costLabel;
@@ -50,10 +50,14 @@ public class BuyUI implements ActionListener {
 	static String[] emNames = { "Computer", "Aircondition", "Projector", "Disk", "Sofa", "Cup" };
 
 	public BuyUI() {
+		
+	}
+	public void show() {
 
 		jFrame = new JFrame("购买管理");
 		jFrame.setSize(500, 500);
-		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jFrame.setLocation(700, 200);
+		jFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		container = jFrame.getContentPane();
 		container.setLayout(new FlowLayout());
@@ -178,12 +182,12 @@ public class BuyUI implements ActionListener {
 		
 		if (e.getSource() == exitButton) {
 			jFrame.dispose();
-			System.exit(0);
 		}
 	}
 
-	public static void main(String[] args) {
-		new BuyUI();
+
+	public void close() {
+		jFrame.dispose();
 	}
 
 }

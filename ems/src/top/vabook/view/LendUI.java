@@ -23,7 +23,7 @@ import top.vabook.util.MsgUtil;
 //转借管理：主要包括转借设备号，转借设备名，经手人，借出日期，归还日期。
 public class LendUI implements ActionListener {
 
-	private static JFrame jFrame;
+	static JFrame jFrame;
 
 	private JLabel emNoLabel, emNameLabel, emPeopleLabel, lendDateLabel, returnDateLabel;
 
@@ -44,11 +44,14 @@ public class LendUI implements ActionListener {
 	static String[] emNames = { "Computer", "Aircondition", "Projector", "Disk", "Sofa", "Cup" };
 
 	public LendUI() {
+		
+	}
+	public void show() {
 
 		jFrame = new JFrame("转借管理");
 		jFrame.setLocation(500, 300);
 		jFrame.setSize(500, 600);
-		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		container = jFrame.getContentPane();
 		container.setLayout(new FlowLayout());
@@ -156,13 +159,11 @@ public class LendUI implements ActionListener {
 		}
 		if (e.getSource() == exitButton) {
 			jFrame.dispose();
-			System.exit(0);
 		}
 
 	}
 
-	public static void main(String[] args) {
-		new LendUI();
+	public void close() {
+		jFrame.dispose();
 	}
-
 }

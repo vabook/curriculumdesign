@@ -23,7 +23,7 @@ import top.vabook.util.MsgUtil;
 //维修管理：维修日期，维修人员，维修经费，设备名，设备号。
 public class RepairUI implements ActionListener{
 	
-	private JFrame jFrame ;
+	JFrame jFrame ;
 	
 	private Container container;
 	
@@ -43,10 +43,14 @@ public class RepairUI implements ActionListener{
 	private static Button submitButton, exitButton;
 	
 	public RepairUI() {
+		
+	}
+	
+	public void show() {
 		jFrame = new JFrame("维修管理");
 		jFrame.setLocation(500, 300);
 		jFrame.setSize(500, 400);
-		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
 		container = jFrame.getContentPane();
 		container.setLayout(new FlowLayout());
@@ -112,9 +116,6 @@ public class RepairUI implements ActionListener{
 		jFrame.setVisible(true);
 		
 	}
-	public static void main(String[] args) {
-		new RepairUI();
-	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -126,7 +127,9 @@ public class RepairUI implements ActionListener{
 				;
 		people = peopleBox.getSelectedItem().toString();
 		
-		cost = Integer.parseInt(costField.getText());
+		if (!costField.getText().isEmpty()) {
+			cost = Integer.parseInt(costField.getText());
+		}
 		
 		emNO = emNoBox.getSelectedItem().toString();
 		
@@ -143,8 +146,11 @@ public class RepairUI implements ActionListener{
 		
 		if (e.getSource() == exitButton) {
 			jFrame.dispose();
-			System.exit(0);
 		}
+	}
+
+	public void close() {
+		jFrame.dispose();
 	}
 	
 }
