@@ -1,12 +1,10 @@
 package top.vabook.view;
 
-import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ import top.vabook.domain.StoreEm;
 //库存管理：包括现存设备数量，设备号，设备名,设备状态
 public class StoreUI implements ActionListener{
 
-	static JFrame jFrame;
+	 JFrame jFrame;
 
 	private static Container container;
 

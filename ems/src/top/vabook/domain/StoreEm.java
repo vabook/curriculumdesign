@@ -52,6 +52,11 @@ public class StoreEm {
 		this.emStatus = emStatus;
 	}
 
-
+	//取出对象值,并转为数组对象
+	public String[] covertArray() {
+		String[] store = {emNo,emName,emStatus,emCount+""};
+		return store;
+		
+	}
 
 }
