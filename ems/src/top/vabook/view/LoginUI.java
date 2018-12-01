@@ -11,6 +11,7 @@ import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,7 +20,10 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import top.vabook.dao.UserDao;
+import top.vabook.domain.User;
 import top.vabook.util.ErrorUtil;
+import top.vabook.util.QueryUtil;
 
 public class LoginUI implements ActionListener {
 	static String title = "欢迎登陆设备管理系统";
@@ -50,6 +54,7 @@ public class LoginUI implements ActionListener {
 
 	private static boolean login_success = false;
 
+	private static boolean NoExitFlag = true;
 	// 七个功能模块,先用按钮做出来
 	private static Button buyButton, lendButton, repairButton, storeButton, scrapButton, userButton, exitButton;
 
@@ -114,7 +119,7 @@ public class LoginUI implements ActionListener {
 		loginButton.addActionListener(this);
 
 		// 登录错误
-		errorLaebl = new JLabel("请登录");
+		errorLaebl = new JLabel("请先登录!");
 		errorLaebl.setForeground(Color.red);
 		container.add(errorLaebl);
 		loginPanel.add(errorLaebl, BorderLayout.EAST);
@@ -188,8 +193,9 @@ public class LoginUI implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String name = nameField.getText();
 		String password = passwordField.getText();
+		List<User> users = UserDao.query();
 		if (e.getSource() == loginButton) {
-			if ("admin".equals(name) && "root".equals(password)) {
+			if (QueryUtil.searchBoth(name, password, users)) {
 				errorLaebl.setText("登录成功!");
 				login_success = true;
 			} else {
@@ -203,7 +209,7 @@ public class LoginUI implements ActionListener {
 		 * 如果登录成功,可以显示,否则显示错误提示
 		 */
 		if (e.getSource() == buyButton) {
-			if (login_success) {
+			if (login_success && NoExitFlag) {
 				buyUI.show();
 
 			} else {
@@ -211,15 +217,14 @@ public class LoginUI implements ActionListener {
 			}
 		}
 		if (e.getSource() == lendButton) {
-			if (login_success) {
-
+			if (login_success && NoExitFlag) {
 				lendUI.show();
 			} else {
 				ErrorUtil.show("请先登录...");
 			}
 		}
 		if (e.getSource() == repairButton) {
-			if (login_success) {
+			if (login_success && NoExitFlag) {
 
 				repairUI.show();
 			} else {
@@ -227,7 +232,7 @@ public class LoginUI implements ActionListener {
 			}
 		}
 		if (e.getSource() == storeButton) {
-			if (login_success) {
+			if (login_success && NoExitFlag) {
 				storeUI.show();
 			} else {
 				ErrorUtil.show("请先登录...");
@@ -235,7 +240,7 @@ public class LoginUI implements ActionListener {
 		}
 		
 		if (e.getSource() == scrapButton) {
-			if (login_success) {
+			if (login_success && NoExitFlag) {
 				scrapUI.show();
 			} else {
 				ErrorUtil.show("请先登录...");
@@ -243,15 +248,18 @@ public class LoginUI implements ActionListener {
 		}
 		
 		if (e.getSource() == userButton) {
-			if (login_success) {
-//				userUI.show();
+			if (login_success && NoExitFlag) {
+				userUI.show();
 			} else {
 				ErrorUtil.show("请先登录...");
 			}
 		}
 		//退出管理,销毁其他界面,并清除登录信息
+		//有bug 如果点击某个功能按钮多次,只有销毁最后一个
 		if (e.getSource() == exitButton) {
-			new exitUI(nameField, passwordField, buyUI, lendUI, repairUI, storeUI, scrapUI,userUI);
+			login_success = false;
+			NoExitFlag = false;
+			new exitUI(nameField, passwordField, buyUI, lendUI, repairUI, storeUI, scrapUI,userUI,errorLaebl);
 		}
 	}
 
