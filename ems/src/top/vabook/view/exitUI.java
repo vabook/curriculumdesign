@@ -1,19 +1,20 @@
 package top.vabook.view;
 
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 //退出本系统，恢复系统的实始状态
 public class exitUI {
 
-	public exitUI(JTextField nameField, JTextField passwordField, BuyUI buyUI, LendUI lendUI, RepairUI repairUI, StoreUI storeUI, ScrapUI scrapUI, UserUI userUI) {
+	public exitUI(JTextField nameField, JTextField passwordField, BuyUI buyUI, LendUI lendUI, RepairUI repairUI, StoreUI storeUI, ScrapUI scrapUI, UserUI userUI, JLabel errorLaebl) {
 		nameField.setText("");
 		passwordField.setText("");
-		
+		errorLaebl.setText("请先登录");
 		//先判断是否点开了,再关闭
-		if (buyUI.jFrame != null) {
+		if (BuyUI.jFrame != null) {
 			buyUI.close();
 		}
-		if (lendUI.jFrame != null) {
+		if (LendUI.jFrame != null) {
 			lendUI.close();
 		}
 		if (repairUI.jFrame != null) {
@@ -22,8 +23,11 @@ public class exitUI {
 		if (storeUI.jFrame != null) {
 			storeUI.close();
 		}
-		if (scrapUI.jFrame != null) {
+		if (ScrapUI.jFrame != null) {
 			scrapUI.close();
+		}
+		if (UserUI.jFrame != null) {
+			userUI.close();
 		}
 	}
 	
