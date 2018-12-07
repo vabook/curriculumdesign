@@ -198,9 +198,11 @@ public class LoginUI implements ActionListener {
 			if (QueryUtil.searchBoth(name, password, users)) {
 				errorLaebl.setText("µÇÂ¼³É¹¦!");
 				login_success = true;
+				NoExitFlag = true;
 			} else {
 				errorLaebl.setText("µÇÂ¼Ê§°Ü");
 				login_success = false;
+				NoExitFlag = false;
 			}
 		}
 		
